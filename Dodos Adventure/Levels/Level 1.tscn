@@ -1,0 +1,108 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Assets/Back/Door.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Player/First.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Back/Level1.png" type="Texture" id=3]
+[ext_resource path="res://Fonts/Brandford.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/Back/Dbox.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Player/Forth.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Player/Thired.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Player/Second.png" type="Texture" id=8]
+[ext_resource path="res://sCRIPT/Level1.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Audio/Tik.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Player/Standing.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Audio/Error.wav" type="AudioStream" id=12]
+
+[sub_resource type="DynamicFont" id=12]
+size = 200
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 12 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 18
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 13 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 53.5, 60 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "Stand",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 726, 367 )
+scale = Vector2( 0.799819, 0.654589 )
+texture = ExtResource( 3 )
+
+[node name="Reddle" type="Sprite" parent="."]
+position = Vector2( 892, 164 )
+scale = Vector2( 0.321354, 0.262037 )
+texture = ExtResource( 5 )
+
+[node name="Title" type="RichTextLabel" parent="Reddle"]
+margin_left = -917.776
+margin_top = -492.633
+margin_right = 927.224
+margin_bottom = 492.367
+theme = SubResource( 3 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+text = "A mother and father have four daughters, and each daughter has one brother. How many people are in the family?"
+
+[node name="LineEdit" type="LineEdit" parent="Reddle"]
+margin_left = -631.702
+margin_top = 541.908
+margin_right = -566.702
+margin_bottom = 570.908
+rect_scale = Vector2( 17.549, 16.6043 )
+theme = SubResource( 7 )
+text = "Answer"
+align = 1
+expand_to_text_length = true
+script = ExtResource( 9 )
+__meta__ = {
+"_editor_description_": "sddd"
+}
+
+[node name="Player" type="KinematicBody2D" parent="Reddle/LineEdit"]
+position = Vector2( -64.0134, 58.8379 )
+scale = Vector2( 0.177323, 0.229835 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Reddle/LineEdit/Player"]
+position = Vector2( -1.19214, 0.583832 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Reddle/LineEdit/Player"]
+position = Vector2( 33.9999, -43 )
+scale = Vector2( 0.219907, 0.198843 )
+frames = SubResource( 11 )
+animation = "Stand"
+playing = true
+
+[node name="RSound" type="AudioStreamPlayer2D" parent="Reddle/LineEdit"]
+stream = ExtResource( 10 )
+
+[node name="WSound2" type="AudioStreamPlayer2D" parent="Reddle/LineEdit"]
+stream = ExtResource( 12 )
+
+[node name="Door" type="Sprite" parent="Reddle"]
+position = Vector2( 2271.64, 1324.24 )
+scale = Vector2( 0.918962, 1.39399 )
+texture = ExtResource( 1 )
+
+[connection signal="text_entered" from="Reddle/LineEdit" to="Reddle/LineEdit" method="_on_LineEdit_text_entered"]

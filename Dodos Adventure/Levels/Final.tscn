@@ -1,0 +1,93 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Fonts/Brandford.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Player/First.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Back/new.jpg" type="Texture" id=3]
+[ext_resource path="res://UI/Princess.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Player/Forth.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Player/Standing.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Player/Second.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Player/Thired.png" type="Texture" id=8]
+[ext_resource path="res://sCRIPT/Fnal.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Heart/Heart1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Heart/Heart2.png" type="Texture" id=11]
+
+[sub_resource type="DynamicFont" id=3]
+size = 200
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 461.582, 440.873 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Stand",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "Heart",
+"speed": 3.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Blank",
+"speed": 5.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 9 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 763, 357 )
+scale = Vector2( 2.74048, 2.72143 )
+texture = ExtResource( 3 )
+
+[node name="Title" type="RichTextLabel" parent="."]
+margin_left = 537.0
+margin_top = 59.0
+margin_right = 1008.0
+margin_bottom = 322.0
+theme = SubResource( 4 )
+custom_colors/default_color = Color( 0.996078, 0.2, 0.2, 1 )
+text = "the end"
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 107, 658 )
+scale = Vector2( 0.177323, 0.229835 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 270.693, -169.687 )
+shape = SubResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
+position = Vector2( 434.236, -491.657 )
+scale = Vector2( 1.70242, 1.37603 )
+frames = SubResource( 6 )
+animation = "Stand"
+playing = true
+
+[node name="Princess" type="Sprite" parent="."]
+position = Vector2( 1426, 488 )
+scale = Vector2( 0.572071, 0.434527 )
+texture = ExtResource( 4 )
+
+[node name="Heart" type="AnimatedSprite" parent="."]
+position = Vector2( 741, 426 )
+scale = Vector2( 0.699216, 0.641231 )
+frames = SubResource( 7 )
+animation = "Blank"
+playing = true
